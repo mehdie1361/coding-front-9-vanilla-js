@@ -6,31 +6,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fetch Data</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 
 <body>
-    <!-- <button onclick="fetchData()">get data</button> -->
+    <button onclick="fetchData()">get data</button>
 
     <table>
         <thead>
             <tr>
                 <th>
                     Currency Name
-                    <button onclick="sort('name')">^</button>
+                    <button class="sort-btn" onclick="sort('name')">^</button>
                 </th>
                 <th>
                     Currency Type
-                    <button onclick="sort('type')">^</button>
+                    <button class="sort-btn" onclick="sort('type')">^</button>
                 </th>
                 <th>
                     Currency Unit
-                    <button onclick="sort('unit')">^</button>
+                    <button class="sort-btn" onclick="sort('unit')">^</button>
                 </th>
                 <th>
                     Currency Value
-                    <button onclick="sort('value')">^</button>
+                    <button class="sort-btn" onclick="sort('value')">^</button>
                 </th>
             </tr>
         </thead>
@@ -41,7 +41,6 @@
 
     <script>
         let tableData = [] // 1
-
 
         async function fetchData() {
             let response = await fetch('https://api.coingecko.com/api/v3/exchange_rates')
@@ -66,6 +65,7 @@
 
         function createTable() {
             const tbody = document.getElementById('tbody')
+            // htmlStr = ""
 
             for (let i = 0; i < tableData.length; i++) {
                 const rowData = tableData[i]
@@ -98,12 +98,11 @@
             for (let i = 0; i < rows.length; i++) {
                 rows[i].remove()
             }
-
         }
 
-        function sort(base) {
+        function sort(property) {
             tableData = tableData.sort((a, b) => {
-                if (a[base] > b[base]) {
+                if (a[property] > b[property]) {
                     return 1
                 } else {
                     return -1
@@ -114,6 +113,39 @@
 
             clearTable()
             createTable()
+
+            // simple sort function
+
+            // 3, 5, 1, 6, 0, 9
+            // 3, 1, 5, 0, 6, 9
+            // 1, 3, 0, 5, 6, 9
+
+            // sampleArr.sort((a, b) => {
+            //     if (a > b) {
+            //         return -1
+            //     } else {
+            //         return 1
+            //     }
+            // })
+
+
+            // array of objects sort function
+
+            // const sampleArr = [
+            //     { name: 6, address: 'sdfgsdg', },
+            //     { name: 2, address: 'dfgh' },
+            //     { name: 4, address: '456 4567' }
+            // ]
+
+            // let property = 'address'
+
+            // sampleArr.sort((a, b) => {
+            //     if (a[property] > b[property]) {
+            //         return -1
+            //     } else {
+            //         return 1
+            //     }
+            // })
         }
 
     </script>
